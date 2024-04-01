@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 function LoginForm() {
   const navigate = useNavigate()
-  
+
   const [isVisible, setIsVisible] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -44,15 +44,13 @@ function LoginForm() {
     setError(null)
 
     try {
-      const response = await fetch("http://carlee.lisa-tallet.mds-nantes.yt/api/auth/login", {
+      const response = await fetch("https://carlee.lisa-tallet.mds-nantes.yt/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(formData)
       })
-
-      console.log(response)
 
       if (!response.ok) {
         throw new Error("Identifiants incorrects");
