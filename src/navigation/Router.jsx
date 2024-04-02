@@ -5,15 +5,20 @@ import {
 } from 'react-router-dom'
 
 /* Pages */
-import Dashboard from '../pages/Dashboard'
+import Dashboard from '../pages/protected/Dashboard'
 import Home from '../pages/Home'
+import PrivateRoute from './PrivateRouteMiddleware'
+import Auth from '../pages/Auth'
 
 function Router () {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='dashboard' element={<Dashboard />} />
+        <Route path='dashboard' element={<PrivateRoute />}>
+          <Route index element={<Dashboard />} />
+        </Route>
+        <Route path='authentication' element={<Auth />} />
       </Routes>
     </BrowserRouter>
   )

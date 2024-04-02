@@ -1,25 +1,29 @@
-import { Input, Button, Checkbox } from "@nextui-org/react"
-import { useEffect, useMemo, useState } from "react"
-import { useNavigate } from 'react-router-dom'
+import { Button, Input } from '@nextui-org/react'
+import { useMemo, useState } from 'react'
+import { validateRegisterForm } from '../../services/formAuthValidation'
+import { toast } from 'react-toastify'
 import { EyeSlashFilledIcon } from "../Icons/EyeSlashFilledIcon"
 import { EyeFilledIcon } from "../Icons/EyeFilledIcon"
 import { useAuth } from "../../contexts/authContext"
 
-function LoginForm() {
+function RegisterForm () {
+  const [errors, setErrors] = useState({
+    firstName: null,
+    lastName: null,
+    phone: null,
+    email: null,
+    password: null
+  })
+
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
     email: '',
     password: ''
   })
-  
-  const navigate = useNavigate()
 
-  const { state: { user, access_token, error, loading}, login } = useAuth()
-
-  useEffect(() => {
-    if (user && access_token) {
-      navigate('/dashboard')
-    }
-  }, [user, access_token])
+  const { state: { loading } } = useAuth()
 
   const [isVisible, setIsVisible] = useState(false)
   const [value, setValue] = useState("")
@@ -46,37 +50,59 @@ function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    login(formData)
-    // setError(null)
-
-    // try {
-    //   const response = fetch("https://carlee.lisa-tallet.mds-nantes.yt/api/auth/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify(formData)
-    //   })
-
-    //   if (!response.ok) {
-    //     throw new Error("Identifiants incorrects")
-    //   }
-
-    //   const data = await response.json()
-    //   localStorage.setItem("token", data.access_token)
-    //   navigate('/dashboard')
-    // } catch (error) {
-    //   toast.error(error.message)
-    // }
+    const _errors = validateRegisterForm(formData)
+    if (_errors) {
+      setErrors(_errors)
+    } else {
+      toast.info(`Formulaire soumis : ${formData.firstName} ${formData.lastName}`)
+    }
   }
 
   return (
-    <div className="p-10 max-w-[420px]">
+    <div className='p-10 max-w-[420px]'>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <div className='flex flex-col bg-white gap-4'>
           <Input
-            label="Email"
-            name="email"
+            name='firstName'
+            label='Prénom : '
+            labelPlacement="outside"
+            variant="bordered"
+            placeholder='Jean'
+            className="font-semibold"
+            size="lg"
+            radius="sm"
+            value={formData.firstName}
+            onChange={handleChange}
+            error={errors.firstName}
+          />
+          <Input
+            name='lastName'
+            label='Nom : '
+            labelPlacement="outside"
+            variant="bordered"
+            placeholder='Dupont'
+            className="font-semibold"
+            size="lg"
+            radius="sm"
+            value={formData.lastName}
+            onChange={handleChange}
+            error={errors.lastName}
+          />
+          <Input
+            name='phone'
+            label="Numéro de téléphone : "
+            labelPlacement="outside"
+            variant="bordered"
+            placeholder="** ** ** ** **"
+            className="font-semibold"
+            size="lg"
+            radius="sm"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          <Input
+            name='email'
+            label='Email : '
             labelPlacement="outside"
             variant="bordered"
             type="email"
@@ -92,8 +118,8 @@ function LoginForm() {
             onValueChange={setValue}
           />
           <Input
-            label="Mot de passe"
-            name="password"
+            name='password'
+            label='Mot de passe : '
             labelPlacement="outside"
             variant="bordered"
             placeholder="**********"
@@ -118,11 +144,7 @@ function LoginForm() {
             onChange={handleChange}
           />
         </div>
-        <div className="flex flex-row justify-between gap-4">
-          <Checkbox radius="sm">Se souvenir de moi</Checkbox>
-          <h2>Mot de passe oublié ?</h2>
-        </div>
-        <Button 
+        <Button
           type='submit'
           color='primary'
           radius="sm"
@@ -130,11 +152,11 @@ function LoginForm() {
           className="p-4 font-bold text-white"
           isLoading={loading}
         >
-          Se connecter
+          {'S\'enregistrer'}
         </Button>
       </form>
     </div>
   )
 }
 
-export default LoginForm
+export default RegisterForm

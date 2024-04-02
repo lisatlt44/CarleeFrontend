@@ -1,18 +1,21 @@
 import { NextUIProvider } from '@nextui-org/react'
-import Header from './components/header/Header';
 import Router from './navigation/Router.jsx'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { AuthProvider } from './contexts/authContext.jsx';
+import Header from './components/header/Header.jsx';
 
 function App() {
   return (
     <>
       <NextUIProvider>
-        <Router />
-        <ToastContainer />
+        <AuthProvider>
+          <Router />
+          <ToastContainer />
+        </AuthProvider>
       </NextUIProvider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
