@@ -1,29 +1,38 @@
 import { Button, Input } from '@nextui-org/react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { validateRegisterForm } from '../../services/formAuthValidation'
 import { toast } from 'react-toastify'
 import { EyeSlashFilledIcon } from "../Icons/EyeSlashFilledIcon"
 import { EyeFilledIcon } from "../Icons/EyeFilledIcon"
 import { useAuth } from "../../contexts/authContext"
+import { useNavigate } from 'react-router-dom'
 
 function RegisterForm () {
   const [errors, setErrors] = useState({
-    firstName: null,
-    lastName: null,
+    firstname: null,
+    lastname: null,
     phone: null,
     email: null,
     password: null
   })
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     phone: '',
     email: '',
     password: ''
   })
 
-  const { state: { loading } } = useAuth()
+  const navigate = useNavigate()
+
+  const { state: { user, access_token, error, loading}, register } = useAuth()
+
+  useEffect(() => {
+    if (user && access_token) {
+      navigate('/dashboard')
+    }
+  }, [user, access_token])
 
   const [isVisible, setIsVisible] = useState(false)
   const [value, setValue] = useState("")
@@ -48,49 +57,57 @@ function RegisterForm () {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const _errors = validateRegisterForm(formData)
-    if (_errors) {
-      setErrors(_errors)
+    
+    if (Object.keys(_errors).length > 0) {
+      Object.values(_errors).forEach((error) => {
+        toast.error(error)
+      })
     } else {
-      toast.info(`Formulaire soumis : ${formData.firstName} ${formData.lastName}`)
+      try {
+        await register(formData)
+        toast.success(`Votre compte a correctement été créé.`)
+      } catch (error) {
+        toast.error(error.message)
+      }
     }
   }
-
+  
   return (
     <div className='p-10 max-w-[420px]'>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <div className='flex flex-col bg-white gap-4'>
           <Input
-            name='firstName'
-            label='Prénom : '
+            label='Prénom'
+            name='firstname'
             labelPlacement="outside"
             variant="bordered"
             placeholder='Jean'
             className="font-semibold"
             size="lg"
             radius="sm"
-            value={formData.firstName}
+            value={formData.firstname}
             onChange={handleChange}
-            error={errors.firstName}
+            error={errors.firstname}
           />
           <Input
-            name='lastName'
-            label='Nom : '
+            label='Nom'
+            name='lastname'
             labelPlacement="outside"
             variant="bordered"
             placeholder='Dupont'
             className="font-semibold"
             size="lg"
             radius="sm"
-            value={formData.lastName}
+            value={formData.lastname}
             onChange={handleChange}
-            error={errors.lastName}
+            error={errors.lastname}
           />
           <Input
+            label="Numéro de téléphone"
             name='phone'
-            label="Numéro de téléphone : "
             labelPlacement="outside"
             variant="bordered"
             placeholder="** ** ** ** **"
@@ -101,8 +118,8 @@ function RegisterForm () {
             onChange={handleChange}
           />
           <Input
+            label='Email'
             name='email'
-            label='Email : '
             labelPlacement="outside"
             variant="bordered"
             type="email"
@@ -118,8 +135,8 @@ function RegisterForm () {
             onValueChange={setValue}
           />
           <Input
+            label='Mot de passe'
             name='password'
-            label='Mot de passe : '
             labelPlacement="outside"
             variant="bordered"
             placeholder="**********"
@@ -133,9 +150,9 @@ function RegisterForm () {
                 onClick={toggleVisibility}
               >
                 {isVisible ? (
-                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
                   <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                ) : (
+                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                 )}
               </button>
             }
@@ -152,7 +169,7 @@ function RegisterForm () {
           className="p-4 font-bold text-white"
           isLoading={loading}
         >
-          {'S\'enregistrer'}
+          S'inscrire
         </Button>
       </form>
     </div>

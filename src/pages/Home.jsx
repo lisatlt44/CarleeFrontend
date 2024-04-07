@@ -9,9 +9,6 @@ function Home () {
 
   return (
     <>
-      <div>
-        <h3 className="font-playpen font-semibold text-3xl">Bienvenue.</h3>
-      </div>
       {
         isLoggedIn ? (<Dashboard />): (<Auth />)
       }

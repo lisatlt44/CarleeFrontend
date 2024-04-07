@@ -107,9 +107,9 @@ function LoginForm() {
                 onClick={toggleVisibility}
               >
                 {isVisible ? (
-                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
                   <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                ) : (
+                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                 )}
               </button>
             }

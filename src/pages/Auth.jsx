@@ -19,7 +19,7 @@ function Auth () {
   return (
     <>
       <a className='cursor-pointer' onClick={() => setIsRegister(!isRegister)}>
-        {isRegister ? "J'ai déjà un compte" : "Pas encore de compte ? S'inscrire"}
+        {isRegister ? "Déjà un compte ? Se connecter" : "Pas encore de compte ? S'inscrire"}
       </a>
       {
         isRegister

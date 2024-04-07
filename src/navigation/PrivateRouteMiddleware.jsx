@@ -5,7 +5,7 @@ function PrivateRoute () {
   const { state: { access_token, user } } = useAuth()
 
   return (
-    access_token && user ? <Outlet /> : <Navigate to='/authentication' />
+    access_token && user ? <Outlet /> : <Navigate to='/' />
   )
 }
 

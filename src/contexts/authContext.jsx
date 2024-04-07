@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
-import { loginApi } from '../services/api'
+import { loginApi, registerApi } from '../services/api'
 import { toast } from 'react-toastify'
 
 const AuthContext = createContext()
@@ -30,7 +30,6 @@ const authReducer = (prevState, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
     case actionTypes.REGISTER:
-      console.log(action.data)
       return {
         access_token: action.data.access_token,
         user: action.data.user,
@@ -84,6 +83,27 @@ const authFactory = (dispatch) => ({
   },
   logout: () => {
     dispatch({ type: actionTypes.LOGOUT })
+  },
+  register: async (credentials) => {
+    dispatch({ type: actionTypes.LOADING })
+    try {
+      const result = await registerApi(credentials)
+      dispatch({ 
+        type: actionTypes.REGISTER,
+        data: {
+          user: result.user,
+          access_token: result.access_token
+        }
+      })
+    } catch (error) {
+      toast.error(error.message)
+      dispatch({
+        type: actionTypes.ERROR,
+        data: {
+          error: error.message
+        }
+      })
+    }
   }
 })
 
