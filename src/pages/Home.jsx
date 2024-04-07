@@ -8,11 +8,15 @@ function Home () {
   const { state: { isLoggedIn, user }, logout } = useAuth()
 
   return (
-    <>
+    <div>
+      <div>
+        <h3 className="font-playpen font-semibold text-3xl">Bienvenue.</h3>
+      </div>
       {
+        
         isLoggedIn ? (<Dashboard />): (<Auth />)
       }
-    </>
+    </div>
   )
 }
 
