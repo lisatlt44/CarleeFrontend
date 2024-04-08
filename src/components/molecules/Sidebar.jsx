@@ -3,13 +3,12 @@ import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar } from '@mu
 import { Dashboard, Search, DriveEta, AccountCircle, CalendarToday, Settings, Logout } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
-import { Button } from '@nextui-org/react';
+import { BsGrid, BsGear, BsPerson, BsSearch, BsCalendar4Week, BsCarFront, BsBoxArrowRight } from "react-icons/bs";
 
 const drawerWidth = 240;
 
 const Sidebar = () => {
   const navigate = useNavigate()
-
   const { logout } = useAuth()
 
   const handleLogout = () => {    
@@ -19,20 +18,10 @@ const Sidebar = () => {
     navigate('/')
   }
 
-  const [open, setOpen] = useState(false)
-
-  const toggleDrawer = () => {
-    setOpen(!open)
-  }
-
   return (
     <div>
-      <Button onClick={toggleDrawer}>
-        {open ? 'Fermer' : 'Ouvrir'}
-      </Button>
       <Drawer
-        variant="persistent"
-        open={open}
+        variant="permanent"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -46,31 +35,31 @@ const Sidebar = () => {
         <div sx={{ toolbar: true }} />
         <List>
           <ListItem button>
-            <ListItemIcon><Dashboard color='primary' /></ListItemIcon>
+            <ListItemIcon><BsGrid  color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Tableau de bord" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon><Search color='primary' /></ListItemIcon>
+            <ListItemIcon><BsSearch color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Chercher un voyant" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon><DriveEta color='primary' /></ListItemIcon>
+            <ListItemIcon><BsCarFront color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Mes véhicules" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon><AccountCircle color='primary' /></ListItemIcon>
+            <ListItemIcon><BsPerson color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Mon compte" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon><CalendarToday color='primary' /></ListItemIcon>
+            <ListItemIcon><BsCalendar4Week color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Calendrier" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon><Settings color='primary' /></ListItemIcon>
+            <ListItemIcon><BsGear color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Paramètres" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon><Logout color='primary' /></ListItemIcon>
+            <ListItemIcon><BsBoxArrowRight color='primary' size={20} /></ListItemIcon>
             <ListItemText primary="Déconnexion" onClick={handleLogout} />
           </ListItem>
         </List>
