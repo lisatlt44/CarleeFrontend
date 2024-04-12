@@ -5,10 +5,10 @@
 @layer base {
   @font-face {
     font-family: 'playpen';
-    src: url('./fonts/PlaypenSans.ttf')
+    src: url('./fonts/PlaypenSans.ttf') format('truetype');
   }
   @font-face {
     font-family: 'openSans';
-    src: url('./fonts/OpenSans.ttf')
+    src: url('./fonts/OpenSans.ttf') format('truetype');
   }
 }
