@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'playpen';
+  src: url('./fonts/PlaypenSans.ttf')
+}
+
+@font-face {
+  font-family: 'openSans';
+  src: url('./fonts/OpenSans.ttf')
+}

@@ -10,7 +10,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        playpen: ['"Playpen"', 'sans-serif']
+        playpen: ['playpen', 'sans-serif'],
+        openSans: ['open-sans', 'sans-serif']
+      },
+      boxShadow: {
+        'sidebar': 'rgba(149, 157, 165, 0.08) 0px 8px 24px;',
       }
     },
   },
@@ -35,6 +39,36 @@ module.exports = {
               foreground: '#FFFFFF',
               DEFAULT: '#0e41fa'
             },
+            pink: {
+              50: '#fcf3f9',
+              100: '#fae9f5',
+              200: '#f8d2ec',
+              300: '#f2a7d7',
+              400: '#ea7cc1',
+              500: '#e054a7',
+              600: '#ce3487',
+              700: '#b2246d',
+              800: '#93215a',
+              900: '#7b204e',
+              950: '#4b0c2b',
+              foreground: '#FFFFFF',
+              DEFAULT: '#f2a7d7'
+            },
+            secondary: {
+              50: '#fff1f1',
+              100: '#ffe1e1',
+              200: '#ffc8c8',
+              300: '#ffa1a1',
+              400: '#fe6060',
+              500: '#f73c3c',
+              600: '#e41e1e',
+              700: '#c01515',
+              800: '#9f1515',
+              900: '#831919',
+              950: '#480707',              
+              foreground: '#FFFFFF',
+              DEFAULT: '#fe6060'
+            }
           }
         },
         dark: {
@@ -53,7 +87,7 @@ module.exports = {
               950: '#12303a',
               foreground: '#FFFFFF',
               DEFAULT: '#2fb8c5'
-            }
+            },
           }
         }
       }
