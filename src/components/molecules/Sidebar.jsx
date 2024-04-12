@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
 import { BsGrid, BsGear, BsPerson, BsSearch, BsCalendar4Week, BsCarFront, BsBoxArrowRight } from "react-icons/bs";
 import { Button, Card } from '@nextui-org/react';
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
   const navigate = useNavigate()
@@ -25,14 +26,22 @@ const Sidebar = () => {
             <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
               <BsGrid />
             </ListItemIcon>
-            <ListItemText primary="Tableau de bord" primaryTypographyProps={{fontFamily: 'openSans', fontSize: '14px', color: 'black', fontWeight: 500 }} />
-          </ListItem>
+            <ListItemText primary={
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
+      Tableau de bord
+    </Link>
+  } />
+</ListItem>
           <ListItem button style={{ borderRadius: '16px' }}>
             <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
               <BsSearch />
             </ListItemIcon>
-            <ListItemText primary="Chercher un voyant" primaryTypographyProps={{fontFamily: 'openSans', fontSize: '14px', color: 'black', fontWeight: 500 }} />
-          </ListItem>
+            <ListItemText primary={
+    <Link to="/indicators" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
+      Chercher un voyant
+    </Link>
+  } />
+</ListItem>
           <ListItem button style={{ borderRadius: '16px' }}>
             <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
               <BsCarFront />
@@ -55,8 +64,12 @@ const Sidebar = () => {
             <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
               <BsGear />
             </ListItemIcon>
-            <ListItemText primary="Paramètres" primaryTypographyProps={{fontFamily: 'openSans', fontSize: '14px', color: 'black', fontWeight: 500 }} />
-          </ListItem>
+            <ListItemText primary={
+            <Link to="/settings" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
+      Paramètres
+    </Link>
+  } />
+</ListItem>
           <ListItem button style={{ borderRadius: '16px' }} onClick={handleLogout}>
             <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
               <BsBoxArrowRight />
