@@ -14,7 +14,6 @@ import { addCarApi } from '../../services/api'
 import { toast } from 'react-toastify'
 
 function Dashboard () {
-  console.log('testtt')
   const { state: { user, access_token } } = useAuth()
   const { response:cars, errorCars, isLoadingCars } = useFetch(`/users/${user.id}/cars`)
   const [documents, setDocuments] = useState([])

@@ -14,7 +14,7 @@ module.exports = {
         openSans: ['open-sans', 'sans-serif']
       },
       boxShadow: {
-        'sidebar': 'rgba(149, 157, 165, 0.08) 0px 8px 24px;',
+        'sidebar': 'rgba(149, 157, 165, 0.08) 0px 8px 24px',
       }
     },
   },
