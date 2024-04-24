@@ -17,10 +17,14 @@ function Router () {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='indicators' element={<Indicators />} />
-        <Route path='settings' element={<Settings />} />
         <Route path='dashboard' element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
+        </Route>
+        <Route path='indicators' element={<PrivateRoute />}>
+          <Route index element={<Indicators />} />
+        </Route>
+        <Route path='settings' element={<PrivateRoute />}>
+          <Route index element={<Settings />} />
         </Route>
         <Route path='authentication' element={<Auth />} />
       </Routes>

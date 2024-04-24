@@ -1,10 +1,8 @@
 import React from 'react'
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
 import { BsGrid, BsGear, BsPerson, BsSearch, BsCalendar4Week, BsCarFront, BsBoxArrowRight } from "react-icons/bs";
-import { Button, Card } from '@nextui-org/react';
-import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
   const navigate = useNavigate()
@@ -17,31 +15,27 @@ const Sidebar = () => {
 
   return (
   <>
-      <div className="w-[300px] shadow-sidebar">
+      <div className="max-w-[260px] shadow-sidebar">
         <div className="flex items-center justify-center">
           <img src={require("../../assets/CarleeWhite.png")} alt="" className='w-full p-8' />
         </div>
         <div className="bg-white shadow-none p-4 gap-4 flex flex-col">
-          <ListItem button style={{ borderRadius: '16px' }}>
-            <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
-              <BsGrid />
-            </ListItemIcon>
-            <ListItemText primary={
-            <Link to="/" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
-      Tableau de bord
-    </Link>
-  } />
-</ListItem>
-          <ListItem button style={{ borderRadius: '16px' }}>
-            <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
-              <BsSearch />
-            </ListItemIcon>
-            <ListItemText primary={
-    <Link to="/indicators" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
-      Chercher un voyant
-    </Link>
-  } />
-</ListItem>
+          <Link to="/dashboard" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
+            <ListItem button style={{ borderRadius: '16px' }}>
+              <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
+                <BsGrid />
+              </ListItemIcon>
+              <ListItemText primary="Tableau de bord" primaryTypographyProps={{fontFamily: 'openSans', fontSize: '14px', color: 'black', fontWeight: 500 }} />
+            </ListItem>
+          </Link>
+          <Link to="/indicators" style={{ color: 'inherit', textDecoration: 'none', fontFamily: 'openSans', fontSize: '14px', fontWeight: 500 }}>
+            <ListItem button style={{ borderRadius: '16px' }}>
+              <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
+                <BsSearch />
+              </ListItemIcon>
+              <ListItemText primary="Chercher un voyant" primaryTypographyProps={{fontFamily: 'openSans', fontSize: '14px', color: 'black', fontWeight: 500 }} />
+            </ListItem>
+          </Link>
           <ListItem button style={{ borderRadius: '16px' }}>
             <ListItemIcon style={{ fontSize: '20px', color: 'black' }}>
               <BsCarFront />
