@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
 import { BsGrid, BsGear, BsPerson, BsSearch, BsCalendar4Week, BsCarFront, BsBoxArrowRight } from "react-icons/bs";
-import { Button, Card } from '@nextui-org/react';
-import { Link } from 'react-router-dom'
 
 
 function useWindowWidth() {

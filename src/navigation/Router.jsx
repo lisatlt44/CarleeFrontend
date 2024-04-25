@@ -20,13 +20,23 @@ function Router () {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='indicators' element={<Indicators />} />
-        <Route path='settings' element={<Settings />} />
-        <Route path='calendar' element={<Calendar />} />
-        <Route path='cars' element={<Cars />} />
-        <Route path='account' element={<Account />} />
         <Route path='dashboard' element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
+        </Route>
+        <Route path='indicators' element={<PrivateRoute />}>
+          <Route index element={<Indicators />} />
+        </Route>
+        <Route path='cars' element={<PrivateRoute />}>
+          <Route index element={<Cars />} />
+        </Route>
+        <Route path='account' element={<PrivateRoute />}>
+          <Route index element={<Account />} />
+        </Route>
+        <Route path='calendar' element={<PrivateRoute />}>
+          <Route index element={<Calendar />} />
+        </Route>
+        <Route path='settings' element={<PrivateRoute />}>
+          <Route index element={<Settings />} />
         </Route>
         <Route path='authentication' element={<Auth />} />
       </Routes>

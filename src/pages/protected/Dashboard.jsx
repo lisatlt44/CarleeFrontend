@@ -7,11 +7,11 @@ import { CardDocuments } from '../../components/dashboard/CardDocuments'
 import {Select, SelectItem} from "@nextui-org/react"
 import { CardCar1 } from '../../components/dashboard/CardCar1'
 import { CardCar2 } from '../../components/dashboard/CardCar2'
-import { CardCard3 } from '../../components/dashboard/CardCard3'
 import { CardCarDefault } from '../../components/dashboard/CardCarDefault'
 import { BsPlusCircle } from "react-icons/bs"
 import { addCarApi } from '../../services/api'
 import { toast } from 'react-toastify'
+import { Icon } from '@mui/material'
 
 function Dashboard () {
   const { state: { user, access_token } } = useAuth()
@@ -20,6 +20,7 @@ function Dashboard () {
   const [isLoadingDocuments, setIsLoadingDocuments] = useState(false)
   const [selectedCars, setSelectedCars] = useState([])
   const {isOpen, onOpen, onOpenChange} = useDisclosure()
+  const [selectedBrand, setSelectedBrand] = useState('')
 
   const [step, setStep] = useState(1)
 
@@ -53,6 +54,18 @@ function Dashboard () {
       })
     }
   }, [isOpen])
+  
+  const handleSelectCarChange = (name, value) => {
+    console.log(value)
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }))
+    if (name === 'brand') {
+      setSelectedBrand(value)
+    }
+    console.log(selectedBrand) 
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -61,13 +74,7 @@ function Dashboard () {
       ...prevValues,
       [name]: value,
     }))
-  }
-  
-  const handleSelectCarChange = (name, value) => {
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }))
+    console.log(formValues) 
   }
 
   const fetchDocuments = async (carId) => {
@@ -184,43 +191,69 @@ function Dashboard () {
       <div className='w-full min-h-auto flex flex-col flex-grow p-4'>
         <div className='header flex flex-row justify-between mt-16 mx-8 gap-4'>
           <h1 className='font-playpen text-2xl font-semibold'>Bonjour {user.firstname},</h1>
-          <Select
-            items={cars}
-            aria-label='Choose a car'
-            variant="bordered"
-            isMultiline={true}
-            selectionMode="multiple"
-            placeholder="Sélectionner une voiture"
-            labelPlacement="outside"
-            defaultSelectedKeys=""
-            classNames={{
-              base: 'max-w-[300px]',
-              trigger: "min-h-unit-12 py-2",
-            }}
-            renderValue={(items) => {
-              return (
-                <div className="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <Chip className='w-full' color='primary' variant='flat' key={item.key}>{item.textValue}</Chip>
-                  ))}
-                </div>
-              )
-            }}
-            onChange={handleSelectChange}
-            >
-            {cars && cars.map((car) => {
-            return (
-              <SelectItem className='w-[280px]' key={car.plate_number} textValue={car.plate_number} value={car.plate_number}>
-                <div className="flex gap-2 items-center">
-                  <div className="flex flex-col">
-                    <span className="text-small">{car.plate_number}</span>
-                    <span className="text-tiny text-default-400">{`${car.brand} ${car.model}`}</span>
+          <div className='flex flew-row gap-6 items-center w-[300px]'>
+            {/* <Button size='lg' isIconOnly color="primary" aria-label="Add">
+              <BsPlusCircle />
+            </Button> */}
+            <Tooltip content={cars && cars.length >= 2 ? 'Maximum de voitures atteint' : 'Ajouter une voiture'} placement="left">
+              <Button
+                style={{
+                  fontSize: '20px',
+                  color: 'white',
+                  cursor: cars && cars.length >= 2 ? 'not-allowed' : 'pointer',
+                  padding: '4px',
+                  minWidth: "40px",
+                }}
+                onClick={cars && cars.length < 2 ? onOpen : null}
+                variant="solid"
+                size='lg'
+                color='primary'
+              >
+                <BsPlusCircle size={16} />
+              </Button>
+            </Tooltip>
+            {/* <Button variant='flat' size='lg' color="primary" endContent={<BsPlusCircle color='primary' />}>
+              Ajouter une voiture
+            </Button>  */}
+            <Select
+              items={cars}
+              aria-label='Choose a car'
+              variant="bordered"
+              isMultiline={true}
+              selectionMode="multiple"
+              placeholder="Sélectionner une voiture"
+              labelPlacement="outside"
+              defaultSelectedKeys=""
+              size='lg'
+              classNames={{
+                base: 'max-w-[300px]',
+                trigger: "min-h-unit-12 py-2",
+              }}
+              renderValue={(items) => {
+                return (
+                  <div className="flex flex-wrap gap-2">
+                    {items.map((item) => (
+                      <Chip className='w-full' color='primary' variant='flat' key={item.key}>{item.textValue}</Chip>
+                    ))}
                   </div>
-                </div>
-              </SelectItem>
-            )
-          })}
-          </Select>
+                )
+              }}
+              onChange={handleSelectChange}
+              >
+              {cars && cars.map((car) => {
+              return (
+                <SelectItem className='w-[280px]' key={car.plate_number} textValue={car.plate_number} value={car.plate_number}>
+                  <div className="flex gap-2 items-center">
+                    <div className="flex flex-col">
+                      <span className="text-small">{car.plate_number}</span>
+                      <span className="text-tiny text-default-400">{`${car.brand} ${car.model}`}</span>
+                    </div>
+                  </div>
+                </SelectItem>
+              )
+            })}
+            </Select>
+          </div>       
         </div>
         <div className='container mx-auto'>
           <div className='px-8'>
@@ -230,21 +263,6 @@ function Dashboard () {
                 <div className="flex flex-col gap-2">
                   <div className='flex flew-row gap-2 items-center'>
                     <h3 className="text-xl font-playpen">Mes voitures</h3>
-                    <Tooltip content={cars && cars.length >= 3 ? 'Maximum de voitures atteint' : 'Ajouter une voiture'} placement="right">
-                      <Button
-                        style={{
-                          fontSize: '20px',
-                          color: 'blue',
-                          cursor: cars && cars.length >= 3 ? 'not-allowed' : 'pointer',
-                          padding: 0,
-                          minWidth: "40px"
-                        }}
-                        onClick={cars && cars.length < 3 ? onOpen : null}
-                        variant="flat"
-                      >
-                        <BsPlusCircle size={16} />
-                      </Button>
-                    </Tooltip>
                       <Modal 
                         isOpen={isOpen} 
                         onOpenChange={onOpenChange}
@@ -280,8 +298,8 @@ function Dashboard () {
                                       }))}
                                       placeholder="Rechercher une marque"
                                       className="max-w-s"
-                                      value={formValues.brand}
-                                      onChange={(value) => handleSelectCarChange('brand', value)}                                      
+                                      value={selectedBrand}
+                                      onChange={(selectedBrand) => handleSelectCarChange('brand', selectedBrand)}                                      
                                       >
                                       {(item) => <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>}
                                     </Autocomplete>
@@ -395,7 +413,7 @@ function Dashboard () {
                         </ModalContent>
                       </Modal>
                   </div>
-                  <div className={`grid grid-cols(${selectedCarsCount} gap-4 w-full ${selectedCarsCount === 1 ? 'sm:grid-cols-1' : selectedCarsCount === 2 ? 'sm:grid-cols-2' : selectedCarsCount === 3 ? 'sm:grid-cols-3' : ''}`}>
+                  <div className={`grid grid-cols(${selectedCarsCount} gap-4 w-full ${selectedCarsCount === 1 ? 'sm:grid-cols-1' : selectedCarsCount === 2 ? 'sm:grid-cols-2' : ''}`}>
                     {selectedCars.length > 0 ? (
                       selectedCars.map((car, index) => {
                         let CardComponent
@@ -406,9 +424,6 @@ function Dashboard () {
                             break
                           case 1:
                             CardComponent = CardCar2
-                            break
-                          case 2:
-                            CardComponent = CardCard3
                             break
                           default:
                             CardComponent = CardCarDefault
