@@ -8,7 +8,8 @@ function Home () {
   return (
     <div>
       <div>
-        <h3 className="font-playpen font-semibold text-3xl">Bienvenue.</h3>
+      <img src={require("../assets/CarleeWhite.png")} alt="" className='w-36 pt-10 pl-10' />
+        <h3 className="font-playpen font-semibold text-2xl p-10">Bienvenue.</h3>
       </div>
       <Auth />
     </div>

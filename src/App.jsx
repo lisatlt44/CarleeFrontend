@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/authContext.jsx';
 import Header from './components/header/Header.jsx';
 
 function App() {
+  
   return (
     <>
       <NextUIProvider>

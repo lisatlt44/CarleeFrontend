@@ -18,13 +18,13 @@ function Auth () {
 
   return (
     <>
-      <a className='cursor-pointer' onClick={() => setIsRegister(!isRegister)}>
+      <a className='p-10' onClick={() => setIsRegister(!isRegister)}>
         {isRegister ? "Déjà un compte ? Se connecter" : "Pas encore de compte ? S'inscrire"}
       </a>
       {
         isRegister
           ? <RegisterForm />
-          : <LoginForm />
+          : <LoginForm className='place-content-center'/>
       }
     </>
   )

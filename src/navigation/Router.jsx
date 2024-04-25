@@ -11,6 +11,9 @@ import PrivateRoute from './PrivateRouteMiddleware'
 import Auth from '../pages/Auth'
 import Indicators from '../pages/Indicators'
 import Settings from '../pages/Settings'
+import Calendar from '../pages/Calendar'
+import Cars from '../pages/Cars'
+import Account from '../pages/Account'
 
 function Router () {
   return (
@@ -19,6 +22,9 @@ function Router () {
         <Route path='/' element={<Home />} />
         <Route path='indicators' element={<Indicators />} />
         <Route path='settings' element={<Settings />} />
+        <Route path='calendar' element={<Calendar />} />
+        <Route path='cars' element={<Cars />} />
+        <Route path='account' element={<Account />} />
         <Route path='dashboard' element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
         </Route>

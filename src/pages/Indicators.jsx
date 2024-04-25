@@ -10,7 +10,7 @@ function Identicators() {
     <div className='flex w-full h-full absolute'>
       <Sidebar />
       <div className='w-full min-h-auto flex flex-col flex-grow p-16'>
-        <h2 className='text-xl font-bold mb-4'>Quelle(s) voyant(s) cherchez-vous ?</h2>
+        <h2 className='text-xl font-bold mb-4'>Quel voyant cherchez-vous ?</h2>
         
         <div className='mb-4'>
         <Button color="primary" auto ghost>

@@ -181,7 +181,7 @@ function Dashboard () {
     <>
     <div className='flex w-full h-full absolute'>
       <Sidebar />
-      <div className='w-full min-h-auto flex flex-col flex-grow'>
+      <div className='w-full min-h-auto flex flex-col flex-grow p-4'>
         <div className='header flex flex-row justify-between mt-16 mx-8 gap-4'>
           <h1 className='font-playpen text-2xl font-semibold'>Bonjour {user.firstname},</h1>
           <Select
