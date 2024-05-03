@@ -13,7 +13,7 @@ import { addCarApi } from '../../services/api'
 import { toast } from 'react-toastify'
 import { Icon } from '@mui/material'
 
-function Dashboard () {
+function Dashboard() {
   const { state: { user, access_token } } = useAuth()
   const { response:cars, errorCars, isLoadingCars } = useFetch(`/users/${user.id}/cars`)
   const [documents, setDocuments] = useState([])

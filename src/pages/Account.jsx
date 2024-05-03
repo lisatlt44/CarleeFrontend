@@ -55,7 +55,7 @@ function Account() {
   
 
     return (
-        <div className='flex w-full h-full'>
+        <div className='flex w-full h-full absolute max-w[300px]'>
             <Sidebar />
             <div className='flex-grow p-16'>
                 <h1 className='text-2xl font-playpen font-semibold mb-8'>Mon compte</h1>
