@@ -27,7 +27,6 @@ function Account() {
     };
 
     const saveChanges = async () => {
-      // Utilisez l'URL correcte pour l'API Laravel
       const apiUrl = `http://localhost/CarleeBackend/public/api/users/${user.id}`;
   
       const response = await fetch(apiUrl, {
@@ -43,7 +42,7 @@ function Account() {
           }),
       });
   
-      const data = await response.json(); // Supposant que votre API renvoie une réponse JSON
+      const data = await response.json(); 
   
       if (response.ok) {
           toggleEditMode();
