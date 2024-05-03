@@ -188,10 +188,10 @@ function Dashboard () {
     <>
     <div className='flex w-full h-full absolute'>
       <Sidebar />
-      <div className='w-full min-h-auto flex flex-col flex-grow p-4'>
-        <div className='header flex flex-row justify-between mt-16 mx-8 gap-4'>
+      <div className='w-full min-h-auto flex flex-col flex-grow p-4 md:p-0'>
+      <div className='md:mt-6 mt-16 mx-8 flex flex-col md:flex-row justify-between items-center'>
           <h1 className='font-playpen text-2xl font-semibold'>Bonjour {user.firstname},</h1>
-          <div className='flex flew-row gap-6 items-center w-[300px]'>
+          <div className='flex flex-col md:flex-row gap-6 items-center mt-4 md:mt-0'>
             {/* <Button size='lg' isIconOnly color="primary" aria-label="Add">
               <BsPlusCircle />
             </Button> */}

@@ -3,22 +3,8 @@ import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
 import { BsGrid, BsGear, BsPerson, BsSearch, BsCalendar4Week, BsCarFront, BsBoxArrowRight } from "react-icons/bs";
+import useWindowWidth from '../../hooks/resizeWindow';
 
-
-function useWindowWidth() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowWidth;
-}
 
 const Sidebar = () => {
   const navigate = useNavigate()
@@ -33,7 +19,7 @@ const Sidebar = () => {
 
   return (
   <>
-      <div className="max-w-[260px] shadow-sidebar" style={{ width: isMobile ? '80px' : '260px' }}>
+      <div className="max-w-[260px] shadow-sidebar" style={{ width: isMobile ? '70px' : '260px' }}>
         <div className="flex items-center justify-center">
           <img 
             src={require("../../assets/CarleeWhite.png")} 
