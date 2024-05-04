@@ -12,6 +12,11 @@ import { BsPlusCircle } from "react-icons/bs"
 import { addCarApi } from '../../services/api'
 import { toast } from 'react-toastify'
 import { Icon } from '@mui/material'
+import {Calendar} from "@nextui-org/react";
+import {parseDate} from '@internationalized/date';
+import {today, getLocalTimeZone} from "@internationalized/date";
+import { EditIcon } from '../../assets/EditIcon'
+import { DeleteIcon } from '../../assets/DeleteIcon'
 
 function Dashboard () {
   const { state: { user, access_token } } = useAuth()
@@ -21,9 +26,33 @@ function Dashboard () {
   const [selectedCars, setSelectedCars] = useState([])
   const {isOpen, onOpen, onOpenChange} = useDisclosure()
   const [selectedBrand, setSelectedBrand] = useState('')
-
   const [step, setStep] = useState(1)
 
+  const [reminders, setReminders] = useState([]);
+
+  useEffect(() => {
+    if (cars && Array.isArray(cars)) {
+      const fetchReminders = async () => {
+        const remindersList = []
+        for (const car of cars) {
+          try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/reminders/${car.id}`, {
+              headers: {
+                Authorization: `Bearer ${access_token}`
+              }
+            })            
+            const data = await response.json()
+            remindersList.push(...data)
+          } catch (error) {
+            console.error("Error fetching reminders for car:", car.id, error)
+          }
+        }
+        setReminders(remindersList)
+      };
+      fetchReminders()
+    }
+  }, [cars])  
+  
   const [formValues, setFormValues] = useState({
     name: '',
     brand: '',
@@ -195,12 +224,12 @@ function Dashboard () {
             {/* <Button size='lg' isIconOnly color="primary" aria-label="Add">
               <BsPlusCircle />
             </Button> */}
-            <Tooltip content={cars && cars.length >= 2 ? 'Maximum de voitures atteint' : 'Ajouter une voiture'} placement="left">
+            <Tooltip content={cars && cars.length >= 1 ? 'Souscris à la version premium !' : 'Ajouter une voiture'} placement="left">
               <Button
                 style={{
                   fontSize: '20px',
                   color: 'white',
-                  cursor: cars && cars.length >= 2 ? 'not-allowed' : 'pointer',
+                  cursor: cars && cars.length >= 1 ? 'not-allowed' : 'pointer',
                   padding: '4px',
                   minWidth: "40px",
                 }}
@@ -221,10 +250,9 @@ function Dashboard () {
               variant="bordered"
               isMultiline={true}
               selectionMode="multiple"
-              placeholder="Sélectionner une voiture"
+              placeholder="Choisis une voiture"
               labelPlacement="outside"
               defaultSelectedKeys=""
-              size='lg'
               classNames={{
                 base: 'max-w-[300px]',
                 trigger: "min-h-unit-12 py-2",
@@ -255,14 +283,44 @@ function Dashboard () {
             </Select>
           </div>       
         </div>
-        <div className='container mx-auto'>
-          <div className='px-8'>
-            <div className="flex justify-center gap-4 xl:gap-6 px-4 lg:px-0  flex-wrap xl:flex-nowrap max-w-[90rem] mx-auto w-full">
-              <div className="mt-6 gap-6 flex flex-col w-full">
-                {/* Card Section Top */}
-                <div className="flex flex-col gap-2">
+        <div className="container mx-auto px-8 w-full">
+          <div className='grid grid-cols-3 gap-4'>
+            <div className="col-span-2 col-start-1 row-start-2">
+              <div className="h-full flex flex-col gap-2">
+                <h3 className="text-xl font-playpen">Prochains rappels</h3>
+                  <div className="w-full bg-default-50 shadow-lg rounded-2xl p-6 ">
+                    <div className="flex gap-x-4 justify-between">
+                      <div className="flex flex-col w-3/6 justify-between">
+                          {reminders
+                          .sort((a, b) => new Date(a.date) - new Date(b.date))
+                          .filter((reminder) => new Date(reminder.date) >= new Date())
+                          .slice(0, 3)
+                          .map((reminder, index) => (
+                            <div key={index} className="w-full bg-white shadow-lg rounded-2xl p-3 mt-2">
+                              <div className="flex flex-row items-center justify-between">
+                                <div>
+                                  <h4 className="text-lg font-medium">{reminder.name}</h4>
+                                  <p className="text-sm text-default-400">
+                                  dans {Math.ceil((new Date(reminder.date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} jours
+                                  </p>
+                                </div>
+                                <div className='flex gap-4'>
+                                  <Button color='primary' size='sm' variant='flat' startContent={<EditIcon />} />
+                                  <Button color='danger' size='sm' variant='flat' startContent={<DeleteIcon />} />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                      <Calendar aria-label="Date (Show Month and Year Picker)" calendarWidth='350px' minValue={today(getLocalTimeZone())} defaultValue={today(getLocalTimeZone())} />
+                    </div>                  
+                  </div>
+              </div>
+            </div>
+            <div className="row-span-2 col-start-3 row-start-1">
+              <div className="mt-4 flex flex-col gap-2">
                   <div className='flex flew-row gap-2 items-center'>
-                    <h3 className="text-xl font-playpen">Mes voitures</h3>
+                    <h3 className="text-xl font-playpen">Ma voiture</h3>
                       <Modal 
                         isOpen={isOpen} 
                         onOpenChange={onOpenChange}
@@ -436,20 +494,24 @@ function Dashboard () {
                       <CardCarDefault style={{ width: '100%' }} />
                     )}
                   </div>
-                </div>
-
-                {/* Chart */}
-                <div className="h-full flex flex-col gap-2">
-                  <h3 className="text-xl font-playpen">Prochains rappels</h3>
-                  <div className="w-full bg-default-50 shadow-lg rounded-2xl p-6 ">
-                    <h1>test</h1>
-                  </div>
+              </div>
+            </div>
+            <div className="col-start-1 row-start-1">
+              <div className="mt-4 gap-2 flex flex-col xl:max-w-md w-full">
+                <h3 className="text-xl font-playpen">Mes documents</h3>
+                <div className="flex flex-col justify-center gap-4 flex-wrap md:flex-nowrap md:flex-col">
+                  {isLoadingDocuments ? (
+                    <Spinner />
+                  ) : (
+                    <CardDocuments documents={documents} />
+                  )}
+                  {/* <CardTransactions /> */}
                 </div>
               </div>
-
-              {/* Left Section */}
-              <div className="mt-6 gap-2 flex flex-col xl:max-w-md w-full">
-                <h3 className="text-xl font-playpen">Mes documents</h3>
+            </div>
+            <div className='col-start-2 row-start-1'>
+              <div className="mt-4 gap-2 flex flex-col xl:max-w-md w-full">
+                <h3 className="text-xl font-playpen">SOS Voyants</h3>
                 <div className="flex flex-col justify-center gap-4 flex-wrap md:flex-nowrap md:flex-col">
                   {isLoadingDocuments ? (
                     <Spinner />

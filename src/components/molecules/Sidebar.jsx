@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   return (
   <>
-      <div className="max-w-[260px] shadow-sidebar" style={{ width: isMobile ? '70px' : '260px' }}>
+      <div className="max-w-[300px] shadow-sidebar" style={{ width: isMobile ? '70px' : '300px' }}>
         <div className="flex items-center justify-center">
           <img 
             src={require("../../assets/CarleeWhite.png")} 

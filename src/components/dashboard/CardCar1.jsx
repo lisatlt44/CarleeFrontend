@@ -28,7 +28,7 @@ export const CardCar1 = (props) => {
   }, [props.car]);
 
   return (
-    <Card isPressable className="bg-primary rounded-xl shadow-md px-3 w-full">
+    <Card isPressable className="bg-primary rounded-xl shadow-md px-3 w-full h-full">
       <CardBody className="py-5">
         <div className="rounded-lg p-4 w-full text-white">
           <div className="flex justify-between items-center mb-4">

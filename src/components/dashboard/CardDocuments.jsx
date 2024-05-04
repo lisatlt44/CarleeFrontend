@@ -6,8 +6,8 @@ export const CardDocuments = (documents) => {
   // const { brand, color, country_iso_code, fuel_type, last_maintenance_date, mileage, model, name, plate_number, production_date } = props.car
   return (
     <>
-      <Card className="bg-default-50 rounded-xl shadow-md px-4 py-6 w-full">
-        <CardBody className="py-5 gap-6">
+      <Card className="bg-default-50 rounded-xl shadow-md px-4 py-6 w-full h-full">
+        <CardBody className="py-5 gap-6 h-full">
           <div className="flex gap-2.5 justify-center">
             <DragAndDrop />      
           </div>
