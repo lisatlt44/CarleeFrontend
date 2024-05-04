@@ -250,12 +250,12 @@ function Dashboard() {
               variant="bordered"
               isMultiline={true}
               selectionMode="multiple"
-              placeholder="Choisis une voiture"
               labelPlacement="outside"
               defaultSelectedKeys=""
+              size='lg'
               classNames={{
                 base: 'max-w-[300px]',
-                trigger: "min-h-unit-12 py-2",
+                trigger: "min-h-unit-12 py-2 w-[200px]",
               }}
               renderValue={(items) => {
                 return (
@@ -296,7 +296,7 @@ function Dashboard() {
                           .filter((reminder) => new Date(reminder.date) >= new Date())
                           .slice(0, 3)
                           .map((reminder, index) => (
-                            <div key={index} className="w-full bg-white shadow-lg rounded-2xl p-3 mt-2">
+                            <div key={index} className="w-full bg-white shadow-lg rounded-2xl p-3">
                               <div className="flex flex-row items-center justify-between">
                                 <div>
                                   <h4 className="text-lg font-medium">{reminder.name}</h4>
