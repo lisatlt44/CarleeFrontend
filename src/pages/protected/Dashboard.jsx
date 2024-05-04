@@ -18,7 +18,7 @@ import {today, getLocalTimeZone} from "@internationalized/date";
 import { EditIcon } from '../../assets/EditIcon'
 import { DeleteIcon } from '../../assets/DeleteIcon'
 
-function Dashboard () {
+function Dashboard() {
   const { state: { user, access_token } } = useAuth()
   const { response:cars, errorCars, isLoadingCars } = useFetch(`/users/${user.id}/cars`)
   const [documents, setDocuments] = useState([])
