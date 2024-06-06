@@ -14,7 +14,7 @@ function Settings() {
   return (
     <div className='flex w-full h-full absolute'>
       <Sidebar />
-      <div className='w-full min-h-auto flex flex-col flex-grow p-16'>
+      <div className='w-full min-h-auto flex flex-col flex-grow p-4 md:p-16'>
         <div className='mb-8'>
           <h1 className="font-playpen font-semibold text-2xl">Paramètres</h1>
           

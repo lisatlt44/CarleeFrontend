@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody } from "@nextui-org/react";
-import { FaCar, FaGasPump } from "react-icons/fa";
+import { FaCar, FaCarSide, FaGasPump } from "react-icons/fa";
 import { BsSpeedometer2 } from "react-icons/bs";
 import { TbBrandApplePodcast } from "react-icons/tb";
 import { GrVmMaintenance } from "react-icons/gr";
+import { FaPlateWheat } from "react-icons/fa6";
 
 export const CardCar1 = (props) => {
-  const { brand, model, name, fuel_type, mileage, last_maintenance_date } = props.car;
+  const { brand, model, name, fuel_type, mileage, last_maintenance_date, country_iso_code, plate_number } = props.car;
 
   const [carPicture, setCarPicture] = useState('');
 
@@ -37,7 +38,7 @@ export const CardCar1 = (props) => {
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center">
               <div className="text-white rounded-full p-2">
-                {carPicture ? <img src={carPicture} alt="Car" /> : <FaCar size={64} />}
+                <img src={require("../../assets/pictureCar1.png")} alt="Car" />
               </div>
             </div>
         <div className="flex flex-col">
@@ -65,6 +66,18 @@ export const CardCar1 = (props) => {
               <GrVmMaintenance />
             </div>
             <span className="ml-2">{last_maintenance_date}</span>
+          </div>
+          <div className="flex items-center">
+            <div className=" text-white rounded-full p-2">
+              <FaCarSide />
+            </div>
+            <span className="ml-2">{country_iso_code}</span>
+          </div>
+          <div className="flex items-center">
+            <div className=" text-white rounded-full p-2">
+              <FaPlateWheat />
+            </div>
+            <span className="ml-2">{plate_number}</span>
           </div>
         </div>
       </div>
