@@ -9,7 +9,7 @@ function Home () {
     <div>
       <div>
       <img src={require("../assets/CarleeWhite.png")} alt="" className='w-36 pt-10 pl-10' />
-        <h3 className="font-playpen font-semibold text-2xl p-10">Bienvenue.</h3>
+        <h3 className="font-playpen flex justify-center font-semibold text-2xl p-10">Bienvenue.</h3>
       </div>
       <Auth />
     </div>

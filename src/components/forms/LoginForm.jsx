@@ -71,68 +71,70 @@ function LoginForm() {
   }
 
   return (
-    <div className="p-10 max-w-[420px]">
-      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <div className='flex flex-col bg-white gap-4'>
-          <Input
-            label="Email"
-            name="email"
-            labelPlacement="outside"
-            variant="bordered"
-            type="email"
-            placeholder="jean.dupont@gmail.com"
-            className="font-semibold"
-            size="lg"
+    <div className="flex justify-center min-h-screen">
+      <div className="p-10 max-w-[420px]">
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+          <div className='flex flex-col bg-white gap-4'>
+            <Input
+              label="Email"
+              name="email"
+              labelPlacement="outside"
+              variant="bordered"
+              type="email"
+              placeholder="jean.dupont@gmail.com"
+              className="font-semibold"
+              size="lg"
+              radius="sm"
+              value={formData.email}
+              onChange={handleChange}
+              isInvalid={isInvalid}
+              color={isInvalid ? "danger" : "default"}
+              errorMessage={isInvalid && value.length > 0 && "Veuillez entrer une adresse e-mail valide"}
+              onValueChange={setValue}
+            />
+            <Input
+              label="Mot de passe"
+              name="password"
+              labelPlacement="outside"
+              variant="bordered"
+              placeholder="**********"
+              className="font-semibold"
+              radius="sm"
+              size="lg"
+              endContent={
+                <button 
+                  className="focus:outline-none" 
+                  type="button" 
+                  onClick={toggleVisibility}
+                >
+                  {isVisible ? (
+                    <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                  ) : (
+                    <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                  )}
+                </button>
+              }
+              type={isVisible ? "text" : "password"}
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-row justify-between gap-4">
+            <Checkbox radius="sm">Se souvenir de moi</Checkbox>
+            <h2>Mot de passe oublié ?</h2>
+          </div>
+          <Button 
+            type='submit'
+            color='primary'
             radius="sm"
-            value={formData.email}
-            onChange={handleChange}
-            isInvalid={isInvalid}
-            color={isInvalid ? "danger" : "default"}
-            errorMessage={isInvalid && value.length > 0 && "Veuillez entrer une adresse e-mail valide"}
-            onValueChange={setValue}
-          />
-          <Input
-            label="Mot de passe"
-            name="password"
-            labelPlacement="outside"
-            variant="bordered"
-            placeholder="**********"
-            className="font-semibold"
-            radius="sm"
             size="lg"
-            endContent={
-              <button 
-                className="focus:outline-none" 
-                type="button" 
-                onClick={toggleVisibility}
-              >
-                {isVisible ? (
-                  <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
-                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                )}
-              </button>
-            }
-            type={isVisible ? "text" : "password"}
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-row justify-between gap-4">
-          <Checkbox radius="sm">Se souvenir de moi</Checkbox>
-          <h2>Mot de passe oublié ?</h2>
-        </div>
-        <Button 
-          type='submit'
-          color='primary'
-          radius="sm"
-          size="lg"
-          className="p-4 font-bold text-white"
-          isLoading={loading}
-        >
-          Se connecter
-        </Button>
-      </form>
+            className="p-4 font-bold text-white"
+            isLoading={loading}
+          >
+            Se connecter
+          </Button>
+        </form>
+      </div>
     </div>
   )
 }

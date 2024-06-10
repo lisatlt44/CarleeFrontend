@@ -18,9 +18,9 @@ function Auth () {
 
   return (
     <>
-      <a className='p-10' onClick={() => setIsRegister(!isRegister)}>
-        {isRegister ? "Déjà un compte ? Se connecter" : "Pas encore de compte ? S'inscrire"}
-      </a>
+          <a className='p-10 cursor-pointer flex justify-center' onClick={() => setIsRegister(!isRegister)}>
+            {isRegister ? "Déjà un compte ? Se connecter" : "Pas encore de compte ? S'inscrire"}
+          </a>
       {
         isRegister
           ? <RegisterForm />
